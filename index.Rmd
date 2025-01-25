@@ -24,8 +24,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # Pengantar
-
-
+ggplot2 adalah library visualisasi data populer di R, bagian dari ekosistem tidyverse, yang dirancang berdasarkan prinsip Grammar of Graphics. Dengan ggplot2, pengguna dapat membuat berbagai jenis grafik, mulai dari yang sederhana hingga kompleks, melalui pendekatan modular dengan menambahkan lapisan (layers) seperti geometri (geoms), peta estetika (aes), tema, atau label. Komponen utama ggplot2 meliputi data dalam bentuk data frame, mapping variabel ke elemen visual dengan aes(), serta geometri seperti geom_point() untuk scatter plot, geom_line() untuk grafik garis, atau geom_histogram() untuk histogram. Selain itu, fitur facet memungkinkan pembuatan subplot berdasarkan kategori tertentu, sementara tema bawaan seperti theme_minimal() dan theme_classic() memberikan fleksibilitas desain. Keunggulan ggplot2 terletak pada modularitasnya yang memungkinkan modifikasi mudah, fleksibilitas dalam membuat grafik kompleks, konsistensi sintaksis, dan dukungan kustomisasi tema yang luas. Library ini ideal untuk menyajikan data dengan visualisasi yang informatif dan estetis.
 
 
 ```{r}
