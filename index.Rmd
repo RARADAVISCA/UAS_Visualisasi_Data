@@ -1,5 +1,5 @@
 ---
-title: "UAS Visualisasi Data"
+title: "UAS Visualization Data"
 author: "Rara Dwi Davisca (A3202300036) - Institut Teknologi Statistika dan Bisnis Muhammadiyah"
 date: "`r Sys.Date()`"
 output: 
@@ -22,6 +22,44 @@ text-align: justify}
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+# Pengantar
+
+
+
+
+```{r}
+library(readr)
+Data <- read_csv("Data.csv")
+View(Data)
+```
+
+# Univat
+
+```{r}
+library(ggplot2)
+
+ggplot(Data, aes(x = Angka_Harapan_Hidup)) +
+  geom_histogram(binwidth = 5, fill = "blue", color = "black") +
+  labs(title = "Distribusi Angka Harapan Hidup", x = "Angka Harapan Hidup", y = "Frekuensi") +
+  theme_minimal()
+```
+
+# Bivariant
+## scatter plot
+
+```{r}
+library(ggplot2)
+
+# Membuat scatter plot untuk analisis bivariat
+ggplot(Data, aes(x = Pendapatan_per_kapita, y = Angka_Harapan_Hidup, color = Benua)) +
+  geom_point(size = 1) +
+  labs(title = "Hubungan Pendapatan Per Kapita dengan Angka Harapan Hidup", 
+       x = "Pendapatan Per Kapita", 
+       y = "Angka Harapan Hidup") +
+  theme_minimal()
+```
+
 
 # R Markdown
 
