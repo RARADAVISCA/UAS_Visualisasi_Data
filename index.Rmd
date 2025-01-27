@@ -4,8 +4,9 @@ author: "Rara Dwi Davisca (A3202300036) - Institut Teknologi Statistika dan Bisn
 date: "`r Sys.Date()`"
 output: 
   html_document:
-    theme: flatly
-    higlight: zenburn
+    css : style. 
+    theme: united
+    higlight: magma
     toc: true
     toc_float:
       collapsed: true
@@ -15,7 +16,13 @@ bibliography: references.bib
 
 ```{=html}
 <style>
-body{
+h1 {
+        color: chocolate; /* Contoh untuk judul besar */
+}
+ p {
+        color: black; /* Contoh untuk paragraf */
+    }
+        
 text-align: justify}
 </style>
 ```
@@ -23,23 +30,38 @@ text-align: justify}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
-library(readr)
-library(readxl)
-library(gganimate)
-```
-
-# Pengantar 
+# 1. Pengantar 
 Ggplot2 adalah library visualisasi data populer di r, bagian dari ekosistem tidyverse, yang dirancang berdasarkan prinsip grammar of graphics. Dengan ggplot2, pengguna dapat membuat berbagai jenis grafik, mulai dari yang sederhana hingga kompleks, melalui pendekatan modular dengan menambahkan lapisan (layers) seperti geometri (geoms), peta estetika (aes), tema, atau label. Komponen utama ggplot2 meliputi data dalam bentuk data frame, mapping variabel ke elemen visual dengan aes(), serta geometri seperti geom_point() untuk scatter plot, geom_line() untuk grafik garis, atau geom_histogram() untuk histogram. Selain itu, fitur facet memungkinkan pembuatan subplot berdasarkan kategori tertentu, sementara tema bawaan seperti theme_minimal() dan theme_classic() memberikan fleksibilitas desain. Keunggulan ggplot2 terletak pada modularitasnya yang memungkinkan modifikasi mudah, fleksibilitas dalam membuat grafik kompleks, konsistensi sintaksis, dan dukungan kustomisasi tema yang luas. Library ini ideal untuk menyajikan data dengan visualisasi yang informatif dan estetis.
 
-# Memanggil Dataset
+```{r}
+library(ggplot2)
+```
+# 2. Membuat paket ggplot2
+Pastikan paket ggplot2 sudah terinstal dan diaktifkan dalam lingkungan R sebelum digunakan. Jika belum terinstal, Anda dapat memasangnya dengan perintah: install.packages("ggplot2"). Setelah itu, aktifkan paket dengan menjalankan perintah: library(ggplot2).
+
+```{r}
+data <- data.frame(x = rnorm(100), y = rnorm(100))
+```
+
+
+# 3. Mengolah dari file data CSV
+Sebelum membaca data, pastikan file berada di lokasi yang benar dengan format yang sesuai, seperti CSV atau Excel. Jika diperlukan, atur direktori kerja menggunakan setwd() agar R dapat mengakses file dengan mudah. Pastikan juga paket yang relevan, seperti readr untuk file CSV, telah diinstal dan diaktifkan.
+
+Periksa struktur file untuk memastikan data terorganisir dengan baik, termasuk nama dan tipe kolom, agar konsisten dengan analisis yang direncanakan. Gunakan fungsi yang sesuai untuk membaca data, misalnya read_csv() untuk file CSV atau read_excel() untuk file Excel. Setelah data diimpor, tinjau beberapa baris awal dengan fungsi seperti head() untuk memastikan file telah dibaca dengan benar dan siap digunakan.
+
+# 4. Membaca Data Csv
+
 ```{r}
 library(readr)
 Data <- read_csv("Data.csv")
 View(Data)
 ```
 
-# 1. Grafik Univariat (Histogram)
+# 5. Membuat Visualisasi Data
+Setelah data yang akan digunakan berhasil dipanggil, langkah selanjutnya adalah menentukan jenis grafik yang sesuai untuk visualisasi data tersebut. Setiap jenis grafik memiliki fungsi dan tujuan yang berbeda, sehingga pemilihannya perlu disesuaikan dengan data dan informasi yang ingin disampaikan. Dalam ujian ini, terdapat setidaknya 4 jenis visualisasi data yang harus dibuat, seperti berikut:
+
+## 5.1 Grafik Univariat (Histogram)
+Grafik univariat digunakan untuk menganalisis dan menampilkan distribusi satu variabel, membantu memahami pola, penyebaran, dan karakteristik data, seperti rata-rata, median, dan outlier. Salah satu Contohnya adalah histogram.
 
 ```{r}
 # Histogram angka_harapan_hidup
@@ -51,7 +73,7 @@ ggplot(Data, aes(x = Angka_Harapan_Hidup)) +
   #binwidth = 5: Lebar tiap bin (kelompok) adalah 5
   #fill = "skyblue"  Warna isi histogram.
   #color = "black" Warna garis tepi histogram.
-  geom_histogram (binwidth = 5, fill = "skyblue", color = "black") +
+  geom_histogram (binwidth = 5, fill = "chocolate", color = "black") +
   
   labs(title = "Histogram Angka Harapan Hidup", #judul
        x = "Angka Harapan Hidup", #nama sumbu x
@@ -59,9 +81,12 @@ ggplot(Data, aes(x = Angka_Harapan_Hidup)) +
   
   #untuk memberikan tamoilan yang bersih
   theme_minimal()
+ 
+
 ```
 
-# 2. Bivariat (scatter plot)
+## 5.2 Grafik Bivariat (scatter plot)
+Grafik bivariat digunakan untuk menganalisis hubungan antara dua variabel, membantu memahami pola, korelasi, atau keterkaitan di antara keduanya. Salah satu Contohnya adalah scatter plot.
 
 ```{r}
 library(ggplot2)
@@ -83,21 +108,87 @@ ggplot(Data, aes(x = Pendapatan_per_kapita, y = Angka_Harapan_Hidup, color = Ben
   theme_minimal()
 ```
 
-# 3. Grafik Multivariat (Heatmap)
+## 5.3 Grafik Multivariat (Heatmap)
+Grafik multivariat digunakan untuk menganalisis hubungan atau pola di antara tiga atau lebih variabel secara bersamaan.Grafik ini membantu dalam memahami interaksi dan pola yang lebih kompleks dalam data.
 
 ```{r}
+library(ggplot2)
+library(reshape2)
+library(readxl)  
+```
 
+```{r}
+# Membaca dataset
+Data <- read_csv("Data.csv")
+
+```
+
+```{r}
+colnames(Data)
+```
+
+```{r}
+library(RColorBrewer)
 ```
 
 
 
+```{r}
+# Menghitung rata-rata Angka Harapan Hidup berdasarkan Benua dan Tahun
+Data_summary <- aggregate(Angka_Harapan_Hidup ~ Benua + Tahun, data = Data, FUN = mean)
 
+# Mengubah data menjadi format matriks
+Data_matrix <- dcast(Data_summary, Benua ~ Tahun, value.var = "Angka_Harapan_Hidup")
 
+# Mengubah data ke dalam format panjang agar bisa dipakai untuk plotting
+Data_long <- melt(Data_matrix, id.vars = "Benua", variable.name = "Tahun", value.name = "Angka_Harapan_Hidup")
 
+# Mengonversi kolom Tahun menjadi numerik
+Data_long$Tahun <- as.numeric(as.character(Data_long$Tahun))
 
+# Membuat heatmap
+ggplot(Data_long, aes(x = Tahun, y = Benua, fill = Angka_Harapan_Hidup)) +
+  geom_tile() +  # Menggambar kotak warna
+  scale_fill_gradientn(colors = brewer.pal(9, "YlOrBr"),  # Warna dari palet Oranges
+                       name = "Angka Harapan Hidup") +  # Nama untuk legenda
+  labs(title = "Heatmap Angka Harapan Hidup Berdasarkan Benua dan Tahun",  # Judul plot
+       x = "Tahun",  # Label sumbu X
+       y = "Benua") +  # Label sumbu Y
+  scale_x_continuous(breaks = seq(min(Data_long$Tahun), 
+                                   max(Data_long$Tahun), 
+                                   by = 30)) +  # Menampilkan label tiap 30 tahun
+  theme_minimal(base_size = 13) +  # Tema minimalis
+  theme(plot.title = element_text(hjust = 0.5))  # Memusatkan judul
 
+```
 
+## 5.4 Grafik Interaktif
+Grafik interaktif digunakan untuk menyajikan data secara visual dengan cara yang memungkinkan pengguna untuk berinteraksi langsung dan memungkinkan eksplorasi data yang lebih fleksibel.
 
+```{r}
+library(plotly)
+library(dplyr)
+```
+
+```{r}
+# Kode untuk grafik interaktif dengan animasi
+plot_ly(Data, 
+        x = ~Pendapatan_per_kapita, 
+        y = ~Angka_Harapan_Hidup, 
+        type = 'scatter', 
+        mode = 'markers', 
+        # Mengubah warna titik
+        marker = list(color = 'chocolate', size = 10),  
+        # Menambahkan frame berdasarkan tahun
+        frame = ~Tahun,
+         # Menggunakan ID unik untuk setiap titik
+        ids = ~Negara) %>%  
+  layout(title = "Interaktif: Pendapatan per Kapita vs Angka Harapan Hidup",
+         xaxis = list(title = "Pendapatan per Kapita"),
+         yaxis = list(title = "Angka Harapan Hidup")) %>%
+  animation_opts(frame = 100, redraw = TRUE) %>%  # Mengatur kecepatan animasi
+  animation_slider(currentvalue = list(prefix = "Tahun: "))  # Menambahkan slider untuk tahun
+```
 
 
 
