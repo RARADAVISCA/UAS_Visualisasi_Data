@@ -1,5 +1,5 @@
 ---
-title: "UAS Visualization Data"
+title: "UAS Data Visualization"
 author: "Rara Dwi Davisca (A3202300036) - Institut Teknologi Statistika dan Bisnis Muhammadiyah"
 date: "`r Sys.Date()`"
 output: 
@@ -23,41 +23,83 @@ text-align: justify}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Pengantar
-ggplot2 adalah library visualisasi data populer di R, bagian dari ekosistem tidyverse, yang dirancang berdasarkan prinsip Grammar of Graphics. Dengan ggplot2, pengguna dapat membuat berbagai jenis grafik, mulai dari yang sederhana hingga kompleks, melalui pendekatan modular dengan menambahkan lapisan (layers) seperti geometri (geoms), peta estetika (aes), tema, atau label. Komponen utama ggplot2 meliputi data dalam bentuk data frame, mapping variabel ke elemen visual dengan aes(), serta geometri seperti geom_point() untuk scatter plot, geom_line() untuk grafik garis, atau geom_histogram() untuk histogram. Selain itu, fitur facet memungkinkan pembuatan subplot berdasarkan kategori tertentu, sementara tema bawaan seperti theme_minimal() dan theme_classic() memberikan fleksibilitas desain. Keunggulan ggplot2 terletak pada modularitasnya yang memungkinkan modifikasi mudah, fleksibilitas dalam membuat grafik kompleks, konsistensi sintaksis, dan dukungan kustomisasi tema yang luas. Library ini ideal untuk menyajikan data dengan visualisasi yang informatif dan estetis.
+```{r}
+library(readr)
+library(readxl)
+library(gganimate)
+```
 
+# Pengantar 
+Ggplot2 adalah library visualisasi data populer di r, bagian dari ekosistem tidyverse, yang dirancang berdasarkan prinsip grammar of graphics. Dengan ggplot2, pengguna dapat membuat berbagai jenis grafik, mulai dari yang sederhana hingga kompleks, melalui pendekatan modular dengan menambahkan lapisan (layers) seperti geometri (geoms), peta estetika (aes), tema, atau label. Komponen utama ggplot2 meliputi data dalam bentuk data frame, mapping variabel ke elemen visual dengan aes(), serta geometri seperti geom_point() untuk scatter plot, geom_line() untuk grafik garis, atau geom_histogram() untuk histogram. Selain itu, fitur facet memungkinkan pembuatan subplot berdasarkan kategori tertentu, sementara tema bawaan seperti theme_minimal() dan theme_classic() memberikan fleksibilitas desain. Keunggulan ggplot2 terletak pada modularitasnya yang memungkinkan modifikasi mudah, fleksibilitas dalam membuat grafik kompleks, konsistensi sintaksis, dan dukungan kustomisasi tema yang luas. Library ini ideal untuk menyajikan data dengan visualisasi yang informatif dan estetis.
 
+# Memanggil Dataset
 ```{r}
 library(readr)
 Data <- read_csv("Data.csv")
 View(Data)
 ```
 
-# Univat
+# 1. Grafik Univariat (Histogram)
 
 ```{r}
+# Histogram angka_harapan_hidup
 library(ggplot2)
 
+#memasukkan data ke x yaitu angka harapan hidup
 ggplot(Data, aes(x = Angka_Harapan_Hidup)) +
-  geom_histogram(binwidth = 5, fill = "blue", color = "black") +
-  labs(title = "Distribusi Angka Harapan Hidup", x = "Angka Harapan Hidup", y = "Frekuensi") +
+  
+  #binwidth = 5: Lebar tiap bin (kelompok) adalah 5
+  #fill = "skyblue"  Warna isi histogram.
+  #color = "black" Warna garis tepi histogram.
+  geom_histogram (binwidth = 5, fill = "skyblue", color = "black") +
+  
+  labs(title = "Histogram Angka Harapan Hidup", #judul
+       x = "Angka Harapan Hidup", #nama sumbu x
+       y = "Frekuensi") + #nama sumbu y
+  
+  #untuk memberikan tamoilan yang bersih
   theme_minimal()
 ```
 
-# Bivariant
-## scatter plot
+# 2. Bivariat (scatter plot)
 
 ```{r}
 library(ggplot2)
 
-# Membuat scatter plot untuk analisis bivariat
+# Membuat scatter plot sederhana untuk analisis bivariat
+
+#memasukkan data ke x yaitu pendapatan per kapita dan y yaitu angka harapan hidup
+#color = benua : pemberian warna ke masing-masing benua
 ggplot(Data, aes(x = Pendapatan_per_kapita, y = Angka_Harapan_Hidup, color = Benua)) +
+
+  #size = 2 : ukuran point
   geom_point(size = 1) +
-  labs(title = "Hubungan Pendapatan Per Kapita dengan Angka Harapan Hidup", 
-       x = "Pendapatan Per Kapita", 
-       y = "Angka Harapan Hidup") +
+  
+  labs(title = "Pendapatan Per Kapita dengan Angka Harapan Hidup", #judul
+       x = "Pendapatan Per Kapita", #nama sumbu x
+       y = "Angka Harapan Hidup") + #nama sumbu y
+  
+  #untuk memberikan tampilan yang bersih 
   theme_minimal()
 ```
+
+# 3. Grafik Multivariat (Heatmap)
+
+```{r}
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # R Markdown
