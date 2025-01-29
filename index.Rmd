@@ -1,6 +1,6 @@
 ---
 title: "UAS Data Visualization"
-author: "Rara Dwi Davisca (A3202300036) - Institut Teknologi Statistika dan Bisnis Muhammadiyah"
+author: "Rara Dwi Davisca (A3202300036) - Rekayasa Perangkat Lunak - Institut Teknologi Statistika dan Bisnis Muhammadiyah"
 date: "`r Sys.Date()`"
 output: 
   html_document:
@@ -31,12 +31,19 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # 1. Pengantar 
-Ggplot2 adalah library visualisasi data populer di r, bagian dari ekosistem tidyverse, yang dirancang berdasarkan prinsip grammar of graphics. Dengan ggplot2, pengguna dapat membuat berbagai jenis grafik, mulai dari yang sederhana hingga kompleks, melalui pendekatan modular dengan menambahkan lapisan (layers) seperti geometri (geoms), peta estetika (aes), tema, atau label. Komponen utama ggplot2 meliputi data dalam bentuk data frame, mapping variabel ke elemen visual dengan aes(), serta geometri seperti geom_point() untuk scatter plot, geom_line() untuk grafik garis, atau geom_histogram() untuk histogram. Selain itu, fitur facet memungkinkan pembuatan subplot berdasarkan kategori tertentu, sementara tema bawaan seperti theme_minimal() dan theme_classic() memberikan fleksibilitas desain. Keunggulan ggplot2 terletak pada modularitasnya yang memungkinkan modifikasi mudah, fleksibilitas dalam membuat grafik kompleks, konsistensi sintaksis, dan dukungan kustomisasi tema yang luas. Library ini ideal untuk menyajikan data dengan visualisasi yang informatif dan estetis.
+R Merupakan Salah Satu Bahasa Pemrograman Yang Banyak Digunakan Dalam Analisis Data, Terutama Di Bidang Statistik Dan Data Sains. Dengan Dukungan Berbagai Paket, R Memungkinkan Pengguna Untuk Melakukan Pemrosesan, Eksplorasi, Dan Visualisasi Data Dengan Mudah Dan Efisien. Salah Satu Paket Yang Paling Populer Untuk Visualisasi Data Di R Adalah Ggplot2 .
+
+Paket Ggplot2 , Yang Dikembangkan Berdasarkan Konsep Grammar Of Graphics , Memungkinkan Pengguna Untuk Membuat Grafik Yang Fleksibel Dan Estetis Dengan Pendekatan Berbasis Lapisan (Layering). Melalui Ggplot2, Kita Dapat Dengan Mudah Membuat Berbagai Jenis Visualisasi, Seperti Histogram Untuk Analisis Univariat , Scatter Plot Dan Diagram Batang Untuk Hubungan Bivariat , Serta Heatmap Dan 3D Scatter Plot Untuk Analisis Multivariat .
+
+Dalam Analisis Data, Langkah Pertama Adalah Membaca Dataset , Misalnya Dalam Format CSV Atau Excel, Kemudian Melakukan Eksplorasi Awal Untuk Memahami Struktur Data Dan Distribusi Variabel. Setelah Itu, Kita Dapat Menggunakan Ggplot2 Untuk Menyajikan Data Secara Visual, Sehingga Lebih Mudah Dipahami Dan Dianalisis.
+
+Dengan Memanfaatkan Ggplot2 , Pengguna Dapat Membuat Visualisasi Yang Informatif Dan Menarik, Sehingga Mendukung Pemahaman Data Yang Lebih Mendalam Serta Membantu Dalam Pengambilan Keputusan Berbasis Data.
 
 ```{r}
 library(ggplot2)
 ```
-# 2. Membuat paket ggplot2
+
+# 2. Membuat Paket ggplot2
 Pastikan paket ggplot2 sudah terinstal dan diaktifkan dalam lingkungan R sebelum digunakan. Jika belum terinstal, Anda dapat memasangnya dengan perintah: install.packages("ggplot2"). Setelah itu, aktifkan paket dengan menjalankan perintah: library(ggplot2).
 
 ```{r}
@@ -45,23 +52,31 @@ data <- data.frame(x = rnorm(100), y = rnorm(100))
 
 
 # 3. Mengolah dari file data CSV
-Sebelum membaca data, pastikan file berada di lokasi yang benar dengan format yang sesuai, seperti CSV atau Excel. Jika diperlukan, atur direktori kerja menggunakan setwd() agar R dapat mengakses file dengan mudah. Pastikan juga paket yang relevan, seperti readr untuk file CSV, telah diinstal dan diaktifkan.
 
-Periksa struktur file untuk memastikan data terorganisir dengan baik, termasuk nama dan tipe kolom, agar konsisten dengan analisis yang direncanakan. Gunakan fungsi yang sesuai untuk membaca data, misalnya read_csv() untuk file CSV atau read_excel() untuk file Excel. Setelah data diimpor, tinjau beberapa baris awal dengan fungsi seperti head() untuk memastikan file telah dibaca dengan benar dan siap digunakan.
+Sebelum Membaca Data, Pastikan File Berada Di Lokasi Yang Benar Dengan Format Yang Sesuai, Seperti CSV Atau Excel. Jika Diperlukan, Atur Direktori Kerja Menggunakan Setwd() Agar R Dapat Mengakses File Dengan Mudah. Pastikan Juga Paket Yang Relevan, Seperti Readr Untuk File CSV, Telah Diinstal Dan Diaktifkan.
+Periksa Struktur File Untuk Memastikan Data Terorganisir Dengan Baik, Termasuk Nama Dan Tipe Kolom, Agar Konsisten Dengan Analisis Yang Direncanakan. Gunakan Fungsi Yang Sesuai Untuk Membaca Data, Misalnya Read_Csv() Untuk File CSV Atau Read_Excel() Untuk File Excel. Setelah Data Diimpor, Tinjau Beberapa Baris Awal Dengan Fungsi Seperti Head() Untuk Memastikan File Telah Dibaca Dengan Benar Dan Siap Digunakan.
 
-# 4. Membaca Data Csv
+# 4. Membaca Data CSV
 
 ```{r}
 library(readr)
-Data <- read_csv("Data.csv")
+Data <- read_csv("Data.csv", show_col_types = FALSE)
 View(Data)
 ```
 
-# 5. Membuat Visualisasi Data
-Setelah data yang akan digunakan berhasil dipanggil, langkah selanjutnya adalah menentukan jenis grafik yang sesuai untuk visualisasi data tersebut. Setiap jenis grafik memiliki fungsi dan tujuan yang berbeda, sehingga pemilihannya perlu disesuaikan dengan data dan informasi yang ingin disampaikan. Dalam ujian ini, terdapat setidaknya 4 jenis visualisasi data yang harus dibuat, seperti berikut:
+```{r}
+Data <- read.csv("Data.csv")
+```
 
-## 5.1 Grafik Univariat (Histogram)
-Grafik univariat digunakan untuk menganalisis dan menampilkan distribusi satu variabel, membantu memahami pola, penyebaran, dan karakteristik data, seperti rata-rata, median, dan outlier. Salah satu Contohnya adalah histogram.
+# 5. Membuat Visualisasi Data
+Setelah Data Yang Akan Digunakan Berhasil Dipanggil, Langkah Selanjutnya Adalah Menentukan Jenis Grafik Yang Sesuai Untuk Visualisasi Data Tersebut. Setiap Jenis Grafik Memiliki Fungsi Dan Tujuan Yang Berbeda, Sehingga Pemilihannya Perlu Disesuaikan Dengan Data Dan Informasi Yang Ingin Disampaikan. Dalam Ujian Ini, Terdapat Setidaknya 4 Jenis Visualisasi Data Yang Harus Dibuat, Seperti Berikut:
+
+## 5.1 Grafik Univariat 
+
+### 5.1.1 Histogram
+
+Univariat Adalah Jenis Analisis Data Yang Hanya Melibatkan Satu Variabel Tanpa Mempertimbangkan Hubungan Dengan Variabel Lain. Analisis Ini Bertujuan Untuk Memahami Distribusi, Kecenderungan Pusat, Dan Variasi Suatu Variabel Lain. Grafik Univariat Digunakan Untuk Menganalisis Dan Menampilkan Distribusi Satu Variabel, Membantu Memahami Pola, Penyebaran, Dan Karakteristik Data, Seperti Rata-Rata, Median, Dan Outlier. Salah Satu Contohnya Adalah Histogram.
+
 
 ```{r}
 # Histogram angka_harapan_hidup
@@ -85,8 +100,35 @@ ggplot(Data, aes(x = Angka_Harapan_Hidup)) +
 
 ```
 
-## 5.2 Grafik Bivariat (scatter plot)
-Grafik bivariat digunakan untuk menganalisis hubungan antara dua variabel, membantu memahami pola, korelasi, atau keterkaitan di antara keduanya. Salah satu Contohnya adalah scatter plot.
+## 5.2 Grafik Bivariat
+Grafik Bivariat Digunakan Untuk Menganalisis Hubungan Antara Dua Variabel, Membantu Memahami Pola, Korelasi, Atau Keterkaitan Di Antara Keduanya. Contohnya Ada Histogram Dan Scatter Plot.
+
+### 5.2.2 Histogram
+
+```{r}
+
+# Menghitung total populasi per benua
+total_population <- aggregate(Populasi ~ Benua, data = Data, sum)  
+# Mengelompokkan data berdasarkan Benua dan menjumlahkan populasi di masing-masing benua
+
+library(ggplot2)  # Memuat library ggplot2 untuk visualisasi data
+
+ggplot(total_population, aes(x = Benua, y = Populasi, fill = Benua)) +  # Membuat plot dengan ggplot
+  
+  geom_bar(stat = "identity") +  # Menggunakan diagram batang dengan tinggi batang sesuai nilai Populasi
+  
+  labs(title = "Total Populasi Berdasarkan Benua",  # Menambahkan judul grafik
+       x = "Benua",  # Label sumbu X
+       y = "Total Populasi") +  # Label sumbu Y
+  
+  theme_minimal() +  # Menggunakan tema minimalis untuk tampilan yang bersih
+  scale_fill_brewer(palette = "YlOrBr")  # Menggunakan skema warna "YlOrBr" (kuning-oranye-coklat)
+
+
+
+```
+
+### 5.2.3 Scatter Plot
 
 ```{r}
 library(ggplot2)
@@ -106,10 +148,13 @@ ggplot(Data, aes(x = Pendapatan_per_kapita, y = Angka_Harapan_Hidup, color = Ben
   
   #untuk memberikan tampilan yang bersih 
   theme_minimal()
+  scale_x_log10() 
 ```
 
-## 5.3 Grafik Multivariat (Heatmap)
-Grafik multivariat digunakan untuk menganalisis hubungan atau pola di antara tiga atau lebih variabel secara bersamaan.Grafik ini membantu dalam memahami interaksi dan pola yang lebih kompleks dalam data.
+## 5.3 Grafik Multivariat
+Grafik Multivariat Digunakan Untuk Menganalisis Hubungan Atau Pola Di Antara Tiga Atau Lebih Variabel Secara Bersamaan.Grafik Ini Membantu Dalam Memahami Interaksi Dan Pola Yang Lebih Kompleks Dalam Data. Contohnya Ada Heatmap Dan 3D Scatter Plot.
+
+### 5.3.3 Heatmap
 
 ```{r}
 library(ggplot2)
@@ -130,8 +175,6 @@ colnames(Data)
 ```{r}
 library(RColorBrewer)
 ```
-
-
 
 ```{r}
 # Menghitung rata-rata Angka Harapan Hidup berdasarkan Benua dan Tahun
@@ -162,8 +205,39 @@ ggplot(Data_long, aes(x = Tahun, y = Benua, fill = Angka_Harapan_Hidup)) +
 
 ```
 
-## 5.4 Grafik Interaktif (Plotly)
-Grafik interaktif digunakan untuk menyajikan data secara visual dengan cara yang memungkinkan pengguna untuk berinteraksi langsung dan memungkinkan eksplorasi data yang lebih fleksibel.
+
+### 5.3.4 3D scatter plot
+
+3D Scatter Plot Adalah Grafik Sebar Tiga Dimensi Yang Digunakan Untuk Memvisualisasikan Hubungan Antara Tiga Variabel Dalam Sebuah Dataset, Di Mana Setiap Titik Data Direpresentasikan Oleh Koordinat
+(X,Y,Z) Pada Sumbu X, Y, Dan Z. Grafik Ini Berguna Untuk Menganalisis Pola Distribusi Data, Mengidentifikasi Klaster, Serta Memahami Korelasi Antara Variabel Secara Lebih Mendalam Dibandingkan Scatter Plot Dua Dimensi. Dalam Analisis Data, 3D Scatter Plot Sering Digunakan Di Berbagai Bidang Seperti Statistik, Ilmu Data, Dan Machine Learning Untuk Eksplorasi Data Secara Visual.
+
+```{r}
+suppressPackageStartupMessages(library(plotly))  # Memuat package plotly tanpa menampilkan pesan startup
+
+# Membuat 3D scatter plot
+plot_ly(Data,  
+  x = ~Pendapatan_per_kapita,  # Sumbu X: Pendapatan per kapita
+  y = ~Angka_Harapan_Hidup,    # Sumbu Y: Angka Harapan Hidup
+  z = ~Populasi,               # Sumbu Z: Populasi
+  type = "scatter3d",          # Menentukan tipe grafik sebagai scatter plot 3D
+  mode = "markers",            # Menampilkan titik data tanpa garis penghubung
+  color = ~Benua,              # Mewarnai titik berdasarkan variabel Benua
+  colors = c("#B84D13", "#CE8887", "#D2691E", "#CD853F")  # Warna untuk setiap benua
+) %>%
+layout(
+  title = "3D Scatter Plot: Pendapatan per kapita, Angka Harapan Hidup dan Populasi", # Judul plot
+  scene = list(
+    xaxis = list(title = 'Pendapatan per kapita'),  # Label untuk sumbu X
+    yaxis = list(title = 'Angka Harapan Hidup'),    # Label untuk sumbu Y
+    zaxis = list(title = 'Populasi')               # Label untuk sumbu Z
+  )
+)
+
+```
+
+## 5.4 Grafik Interaktif 
+### 5.4.4 Plotly
+Grafik Interaktif Digunakan Untuk Menyajikan Data Secara Visual Dengan Cara Yang Memungkinkan Pengguna Untuk Berinteraksi Langsung Dan Memungkinkan Eksplorasi Data Yang Lebih Fleksibel.
 
 ```{r}
 library(plotly)
@@ -172,26 +246,40 @@ library(dplyr)
 
 ```{r}
 # Kode untuk grafik interaktif dengan animasi
-plot_ly(Data, 
-        x = ~Pendapatan_per_kapita, 
-        y = ~Angka_Harapan_Hidup, 
-        type = 'scatter', 
-        mode = 'markers', 
-        # Mengubah warna titik
-        marker = list(color = 'chocolate', size = 10),  
-        # Menambahkan frame berdasarkan tahun
-        frame = ~Tahun,
-         # Menggunakan ID unik untuk setiap titik
-        ids = ~Negara) %>%  
-  layout(title = "Interaktif: Pendapatan per Kapita dengan Angka Harapan Hidup",
-         xaxis = list(title = "Pendapatan per Kapita"),
-         yaxis = list(title = "Angka Harapan Hidup")) %>%
-  animation_opts(frame = 100, redraw = TRUE) %>%  # Mengatur kecepatan animasi
-  animation_slider(currentvalue = list(prefix = "Tahun: "))  # Menambahkan slider untuk tahun
+plot_ly(Data,  
+        # Sumber data yang digunakan  
+        x = ~Pendapatan_per_kapita,  # Sumbu X: Pendapatan per kapita  
+        y = ~Angka_Harapan_Hidup,    # Sumbu Y: Angka Harapan Hidup  
+        type = "scatter",            # Jenis plot: scatter plot  
+        mode = "markers",            # Mode: titik (bukan garis)  
+        
+        # Mengatur warna berdasarkan variabel 'Benua'  
+        color = ~Benua,  
+        colors = c("#8B4513", "#D2691E", "#CD853F", "#DEB887"), # Nuansa coklat  
+        
+        # Animasi berdasarkan tahun  
+        frame = ~Tahun,  # Tiap tahun akan memiliki frame animasi  
+        
+        # Menetapkan ID unik untuk tiap titik data (agar transisi animasi lebih halus)  
+        ids = ~Negara,   
+        
+        # Mengatur ukuran titik pada scatter plot  
+        marker = list(size = 10)) %>%  # Ukuran titik: 10  
+
+  # Mengatur tampilan layout grafik  
+  layout(title = "Interaktif: Pendapatan per Kapita dengan Angka Harapan Hidup",  # Judul plot  
+         xaxis = list(title = "Pendapatan per Kapita"),  # Label untuk sumbu X  
+         yaxis = list(title = "Angka Harapan Hidup")) %>%  # Label untuk sumbu Y  
+
+  # Mengatur opsi animasi  
+  animation_opts(frame = 100, redraw = TRUE) %>%  # Kecepatan animasi, update setiap 100 ms  
+
+  # Menambahkan slider untuk memilih tahun  
+  animation_slider(currentvalue = list(prefix = "Tahun: "))  # Slider menampilkan tahun yang dipilih
 ```
 
-
-
+# Kesimpulan
+Dari Hasil Analisis Diatas Menunjukkan Bahwa Pendapatan Per Kapita Merosot Positif Dengan Angka Harapan Hidup , Di Negara Mana Dengan Perekonomian Lebih Baik Cenderung Memiliki Harapan Hidup Lebih Tinggi. Populasi Suatu Benua Tidak Selalu Berpengaruh Langsung Terhadap Kesejahteraan , Karena Distribusi Angka Harapan Hidup Bervariasi Di Setiap Wilayah. Tren Perubahan Angka Harapan Hidup Berbeda Di Setiap Benua , Dengan Beberapa Mengalami Peningkatan Yang Signifikan, Sementara Yang Lain Stagnan Atau Menurun. Visualisasi Data Membantu Memahami Pola Hubungan Antar Variabel , Sehingga Dapat Digunakan Untuk Pengambilan Kebijakan Di Bidang Ekonomi, Kesehatan, Dan Pembangunan Sosial.
 
 
 
